@@ -1,0 +1,23 @@
+# Xcode
+.DS_Store
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+build/
+
+# Swift Package Manager
+# .swiftpm/xcode/package.xcworkspace/xcuserdata/
+
+# Pods (if using CocoaPods)
+# Pods/
+
+# Carthage (if using Carthage)
+# Carthage/Build/
+
+# Other
+*.log
+*.bak
+*~.nib
+*.swp
+.Trash/
+.idea/
