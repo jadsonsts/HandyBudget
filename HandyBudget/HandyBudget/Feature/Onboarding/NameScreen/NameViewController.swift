@@ -8,12 +8,29 @@
 import UIKit
 
 class NameViewController: UIViewController {
-
+    
+    private lazy var nameView: NameView = {
+        let view = NameView()
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        title = "Onboarding"
+        nameView.delegate = self
     }
-
-
+    
+    override func loadView() {
+        self.view = nameView
+    }
+    
 }
 
+extension NameViewController: NameViewDelegate {
+    func nextButtonTapped() {
+        let viewController = CategorySelectionViewController()
+        viewController.modalPresentationStyle = .fullScreen
+        present(viewController, animated: true)
+    }
+    
+}
