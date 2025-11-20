@@ -16,7 +16,7 @@ class NameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Onboarding"
+        title = "Home - Onboarding"
         nameView.delegate = self
     }
     

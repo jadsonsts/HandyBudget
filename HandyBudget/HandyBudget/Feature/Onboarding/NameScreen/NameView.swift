@@ -18,7 +18,7 @@ class NameView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.textColor = .label
+        label.textColor = .white
         label.font = .systemFont(ofSize: 18)
         return label
     }()
@@ -27,28 +27,41 @@ class NameView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.textColor = .label
+        label.textColor = .white
         label.font = .systemFont(ofSize: 18)
         return label
     }()
     
     private lazy var nameTextField: UITextField = {
+//        let textField = FloatingPlaceholderTextField()
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
-        textField.placeholder = "How would you like to be called? (optional)"
-        textField.backgroundColor = .systemGray6
+        textField.placeholder = "Name"
+        textField.backgroundColor = .appTeal
         textField.returnKeyType = .done
         textField.delegate = self
+        textField.layer.borderColor = UIColor.white.cgColor
+        textField.layer.borderWidth = 1.0
+        textField.layer.cornerRadius = 10
         return textField
     }()
     
+    
+    // ASK POLI ABOUT THIS NEW BUTTON STYLE
+//    let nextButton2 = UIButton(
+//            configuration: .primary("Next"),
+//            primaryAction: .init(handler: { [weak self] _ in
+//                self?.delegate?.nextButtonTapped()
+//            })
+//        )
+
     private lazy var nextButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Next", for: .normal)
-        button.backgroundColor = UIColor.appTeal
-        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .white
+        button.setTitleColor(.appTeal, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 18, weight: .regular)
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
@@ -58,7 +71,7 @@ class NameView: UIView {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [askNameLabel, nameTextField])
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = 15
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -115,7 +128,7 @@ extension NameView: ViewCode {
     }
     
     func setupStyle() {
-        backgroundColor = .appBackground
+        backgroundColor = .appTeal
     }
 }
 

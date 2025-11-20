@@ -8,7 +8,7 @@
 import UIKit
 
 class CategorySelectionViewController: UIViewController {
-    
+
     private lazy var categorySelectionView: CategorySelectionView = {
         let view = CategorySelectionView()
         return view
@@ -16,11 +16,22 @@ class CategorySelectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationController?.isNavigationBarHidden = true
+        title = "Categories - Onboarding"
+        categorySelectionView.delegate = self
     }
     
     override func loadView() {
         self.view = categorySelectionView
+    
     }
     
+}
+extension CategorySelectionViewController: CategoryViewDelegate {
+    func nextButtonTapped() {
+        // Proceed to the next step in onboarding
+    }
+    
+    func categorySelected(category: CategoryModel) {
+        print("Selected category: \(category.name) + \(category.iconName)")
+    }
 }
