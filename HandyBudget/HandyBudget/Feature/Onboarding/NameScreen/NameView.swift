@@ -49,12 +49,12 @@ class NameView: UIView {
     
     
     // ASK POLI ABOUT THIS NEW BUTTON STYLE
-//    let nextButton2 = UIButton(
-//            configuration: .primary("Next"),
-//            primaryAction: .init(handler: { [weak self] _ in
-//                self?.delegate?.nextButtonTapped()
-//            })
-//        )
+    private lazy var nextButton2 = UIButton(
+            configuration: .primary("Next"),
+            primaryAction: .init(handler: { [weak self] _ in
+                self?.delegate?.nextButtonTapped()
+            })
+        )
 
     private lazy var nextButton: UIButton = {
         let button = UIButton(type: .system)

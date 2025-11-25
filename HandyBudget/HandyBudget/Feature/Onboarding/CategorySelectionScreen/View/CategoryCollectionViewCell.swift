@@ -81,7 +81,7 @@ extension CategoryCollectionViewCell: ViewCode {
     
     func setupStyle() {
     
-        contentView.layer.borderColor = UIColor.appTeal.cgColor
+        contentView.layer.borderColor = UIColor.label.cgColor
         contentView.layer.borderWidth = 1.0
         contentView.layer.cornerRadius = 8.0
         contentView.clipsToBounds = true

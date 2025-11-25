@@ -33,8 +33,8 @@ class CategoryCollectionView: UICollectionView {
     
     convenience init() {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 150, height: 30)
-        layout.minimumLineSpacing = 5
+        layout.itemSize = CGSize(width: 150, height: 35)
+        layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 5
         self.init(frame: .zero, collectionViewLayout: layout)
     }
