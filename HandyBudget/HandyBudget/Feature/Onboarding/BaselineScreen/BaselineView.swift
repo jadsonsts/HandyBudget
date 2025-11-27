@@ -13,7 +13,6 @@ class BaselineView: UIView {
     
     private lazy var baselineExplanationLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .white
         label.font = .systemFont(ofSize: 18)
@@ -22,7 +21,6 @@ class BaselineView: UIView {
     
     private lazy var baselineLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .white
         label.font = .systemFont(ofSize: 18)
@@ -32,7 +30,6 @@ class BaselineView: UIView {
     
     private lazy var selectBaselineButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.configuration = .primary("Select an option")
         return button
     }()
@@ -42,15 +39,19 @@ class BaselineView: UIView {
         let stackView = UIStackView(arrangedSubviews: [baselineLabel, selectBaselineButton])
         stackView.axis = .horizontal
         stackView.spacing = 16
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
-    //GPT RECOMMENDATION
+    private lazy var finishOnboardButton = UIButton(
+        configuration: .primary("Save Settings"),
+        primaryAction: .init(handler: { [weak self]_ in
+        // Add delegate call to handle button tap
+    })
+    )
     
+    //GPT RECOMMENDATION
     private lazy var daySelectionButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.configuration = .primary("Select day")
         button.isHidden = true   // start hidden unless monthly is selected
         return button
@@ -62,13 +63,11 @@ class BaselineView: UIView {
         stack.alignment = .center
         stack.spacing = 8
         stack.distribution = .fillEqually
-        stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
 
     private lazy var summaryLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .white
         label.font = .systemFont(ofSize: 18)
@@ -204,32 +203,48 @@ extension BaselineView: ViewCode {
         addSubview(dynamicOptionsStack)
         addSubview(daySelectionButton)
         addSubview(summaryLabel)
+        addSubview(finishOnboardButton)
     }
     
     func setupConstraints() {
-        NSLayoutConstraint.activate([
-            baselineExplanationLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            baselineExplanationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            baselineExplanationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
-            baselineStackView.topAnchor.constraint(equalTo: baselineExplanationLabel.bottomAnchor, constant: 30),
-            baselineStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            baselineStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
-            dynamicOptionsStack.topAnchor.constraint(equalTo: baselineStackView.bottomAnchor, constant: 24),
-            dynamicOptionsStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            dynamicOptionsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            dynamicOptionsStack.heightAnchor.constraint(equalToConstant: 44),
-            
-            daySelectionButton.topAnchor.constraint(equalTo: baselineStackView.bottomAnchor, constant: 24),
-            daySelectionButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            daySelectionButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            daySelectionButton.heightAnchor.constraint(equalToConstant: 44),
-            
-            summaryLabel.topAnchor.constraint(equalTo: dynamicOptionsStack.bottomAnchor, constant: 20),
-            summaryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            summaryLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+        baselineExplanationLabel
+            .fillHorizontally()
+            .setConstraint([
+                baselineExplanationLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10)
+            ])
+        
+        baselineStackView
+            .fillHorizontally()
+            .setConstraint([
+                baselineStackView.topAnchor.constraint(equalTo: baselineExplanationLabel.bottomAnchor, constant: 30)
         ])
+        
+        dynamicOptionsStack
+            .fillHorizontally()
+            .setConstraint([
+                dynamicOptionsStack.topAnchor.constraint(equalTo: baselineStackView.bottomAnchor, constant: 20),
+                dynamicOptionsStack.heightAnchor.constraint(equalToConstant: 44)
+            ])
+        
+        daySelectionButton
+            .fillHorizontally()
+            .setConstraint([
+            daySelectionButton.topAnchor.constraint(equalTo: baselineStackView.bottomAnchor, constant: 20),
+            daySelectionButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
+        summaryLabel
+            .fillHorizontally()
+            .setConstraint([
+                summaryLabel.topAnchor.constraint(equalTo: dynamicOptionsStack.bottomAnchor, constant: 20)
+            ])
+        
+        finishOnboardButton
+            .fillHorizontally()
+            .setConstraint([
+                finishOnboardButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -20)
+        ])
+
     }
     
     func setupStyle() {
@@ -237,3 +252,4 @@ extension BaselineView: ViewCode {
     }
     
 }
+    
