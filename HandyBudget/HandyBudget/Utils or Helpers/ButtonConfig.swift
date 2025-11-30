@@ -8,6 +8,14 @@
 import UIKit
 
 extension UIButton.Configuration {
+    
+    static func miniPrimary(_ title: String) -> UIButton.Configuration {
+        var config = UIButton.Configuration.primary(title)
+        config.buttonSize = .mini        
+        return config
+    }
+        
+    
     static func primary(_ title: String) -> UIButton.Configuration {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .white

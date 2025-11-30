@@ -16,7 +16,6 @@ class NameView: UIView {
     
     private lazy var greetingLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .white
         label.font = .systemFont(ofSize: 18)
@@ -25,7 +24,6 @@ class NameView: UIView {
     
     private lazy var askNameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .white
         label.font = .systemFont(ofSize: 18)
@@ -35,7 +33,6 @@ class NameView: UIView {
     private lazy var nameTextField: UITextField = {
 //        let textField = FloatingPlaceholderTextField()
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
         textField.placeholder = "Name"
         textField.backgroundColor = .appTeal
@@ -48,31 +45,17 @@ class NameView: UIView {
     }()
     
     
-    // ASK POLI ABOUT THIS NEW BUTTON STYLE
-    private lazy var nextButton2 = UIButton(
+    private lazy var nextButton = UIButton(
             configuration: .primary("Next"),
             primaryAction: .init(handler: { [weak self] _ in
-                self?.delegate?.nextButtonTapped()
+                self?.didTapNextButton()
             })
         )
-
-    private lazy var nextButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Next", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(.appTeal, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .regular)
-        button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
-        return button
-    }()
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [askNameLabel, nameTextField])
         stackView.axis = .vertical
         stackView.spacing = 15
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
@@ -83,7 +66,7 @@ class NameView: UIView {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         addGestureRecognizer(tapGesture)
         
-        greetingLabel.text = "Welcome to HandyBudget.\n \nWe've changed a few bits on the app to make it easier for you to manage your finances, so let's get to know you better!"
+        greetingLabel.text = "Welcome to HandyBudget.\n \nIn order to give you the best experience, we would like to ask you a few questions."
         
         askNameLabel.text = "Let's start with your name:"
     }
@@ -96,8 +79,9 @@ class NameView: UIView {
         endEditing(true)
     }
     
-    @objc internal func didTapNextButton() {
+    func didTapNextButton() {
         delegate?.nextButtonTapped()
+        nameTextField.resignFirstResponder()
     }
 }
 
@@ -109,22 +93,25 @@ extension NameView: ViewCode {
     }
     
     func setupConstraints() {
-        NSLayoutConstraint.activate([
-            greetingLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            greetingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            greetingLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
-            stackView.topAnchor.constraint(equalTo: greetingLabel.bottomAnchor, constant: 30),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
-            nextButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 50),
-            nextButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            nextButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            nextButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            nextButton.heightAnchor.constraint(equalToConstant: 50)
-            
+        
+        greetingLabel
+            .fillHorizontally()
+            .setConstraint([
+                greetingLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16)
         ])
+        
+        stackView
+            .fillHorizontally()
+            .setConstraint([
+                stackView.topAnchor.constraint(equalTo: greetingLabel.bottomAnchor, constant: 30)
+        ])
+        
+        nextButton
+            .fillHorizontally()
+            .setConstraint([
+                nextButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 50)
+                //check if it's better to leave the button at the bottom and make it goes up when keyboard appears
+            ])
     }
     
     func setupStyle() {

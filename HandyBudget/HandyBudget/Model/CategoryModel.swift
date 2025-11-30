@@ -12,7 +12,7 @@ struct CategoryModel {
 }
 
 extension CategoryModel {
-    static func sampleCategories() -> [CategoryModel] {
+    static func initialCategories() -> [CategoryModel] { //review Firebase to match the categories
         return [
             CategoryModel(name: "Food", iconName: "fork.knife", priority: 0),
             CategoryModel(name: "Transport", iconName: "car", priority: 0),

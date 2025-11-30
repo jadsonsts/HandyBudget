@@ -15,7 +15,7 @@ class CategoryCollectionView: UICollectionView {
     
     weak var categoryDelegate: CategoryCollectionViewDelegate?
     
-    let categories: [CategoryModel] = CategoryModel.sampleCategories()
+    let categories: [CategoryModel] = CategoryModel.initialCategories()
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)

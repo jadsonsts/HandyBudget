@@ -9,7 +9,7 @@ import UIKit
 
 class NameViewController: UIViewController {
     
-    let foo = "Poli"
+//    let foo = "Poli"
     
     private lazy var nameView: NameView = {
         let view = NameView()
@@ -30,7 +30,8 @@ class NameViewController: UIViewController {
 
 extension NameViewController: NameViewDelegate {
     func nextButtonTapped() {
-        let viewController = CategorySelectionViewController(service: foo)
+//        let viewController = CategorySelectionViewController(service: foo)
+        let viewController = CategorySelectionViewController()
         navigationController?.pushViewController(viewController, animated: true)
     }
     

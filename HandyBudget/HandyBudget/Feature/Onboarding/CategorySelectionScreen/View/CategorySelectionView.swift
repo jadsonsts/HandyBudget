@@ -18,7 +18,6 @@ class CategorySelectionView: UIView {
     
     private lazy var categoryExplanationLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textColor = .label
         label.font = .systemFont(ofSize: 15)
@@ -27,7 +26,6 @@ class CategorySelectionView: UIView {
     
     private lazy var categoryCollectionView: UICollectionView = {
         let collectionView = CategoryCollectionView()
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
         collectionView.allowsMultipleSelection = true // Enable multiple selection
         collectionView.layer.cornerRadius = 10
@@ -38,17 +36,12 @@ class CategorySelectionView: UIView {
         return collectionView
     }()
     
-    private lazy var nextButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Next", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(.appTeal, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 18, weight: .regular)
-        button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
-        return button
-    }()
+    private lazy var nextButton = UIButton(
+        configuration: .primary("Next"),
+        primaryAction: .init(handler: { [weak self] _ in
+        self?.didTapNextButton()
+    }))
+
     
     // initializers
     override init(frame: CGRect) {
@@ -61,7 +54,7 @@ class CategorySelectionView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc internal func didTapNextButton() {
+    func didTapNextButton() {
         delegate?.nextButtonTapped()
     }
 }
@@ -74,22 +67,24 @@ extension CategorySelectionView: ViewCode {
     }
     
     func setupConstraints() {
-        NSLayoutConstraint.activate([
-            categoryExplanationLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            categoryExplanationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            categoryExplanationLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            
+        
+        categoryExplanationLabel
+            .fillHorizontally()
+            .setConstraint([
+                categoryExplanationLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16)
+            ])
+        
+        categoryCollectionView
+            .fillHorizontally()
+            .setConstraint([
             categoryCollectionView.topAnchor.constraint(equalTo: categoryExplanationLabel.bottomAnchor, constant: 20),
-            categoryCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            categoryCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            categoryCollectionView.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: -25),
-            
-            nextButton.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: -25),
-            nextButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            nextButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            nextButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            categoryCollectionView.bottomAnchor.constraint(equalTo: nextButton.topAnchor, constant: -25)
+        ])
+        
+        nextButton
+            .fillHorizontally()
+            .setConstraint([
+                nextButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
         ])
     }
     

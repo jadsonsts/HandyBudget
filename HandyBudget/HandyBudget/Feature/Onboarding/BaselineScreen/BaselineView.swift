@@ -186,7 +186,7 @@ class BaselineView: UIView {
         super.init(frame: frame)
         setup()
         
-        baselineExplanationLabel.text = "To get started, we need to establish your financial baseline. This involves understanding your current income and expenses so we can create a budget that works for you. Don't worry, this information is kept secure and private."
+        baselineExplanationLabel.text = "We need to establish your financial baseline (determine when the app will reset the bills to pay). This helps us provide accurate budgeting and expense tracking."
         
         setupMenuButton()
     }
