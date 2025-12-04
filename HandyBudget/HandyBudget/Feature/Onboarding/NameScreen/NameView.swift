@@ -41,6 +41,7 @@ class NameView: UIView {
         textField.layer.borderColor = UIColor.white.cgColor
         textField.layer.borderWidth = 1.0
         textField.layer.cornerRadius = 10
+        textField.clearButtonMode = .whileEditing
         return textField
     }()
     
@@ -77,6 +78,17 @@ class NameView: UIView {
     
     @objc private func dismissKeyboard() {
         endEditing(true)
+    }
+    
+    public func getName() -> String? {
+        guard let nameText = nameTextField.text else { return nil }
+        return nameText
+    }
+    
+    func createAlertForEmptyName(_ message: String) -> UIAlertController {
+        let alert = UIAlertController(title: "Whoops", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: nil))
+        return alert
     }
     
     func didTapNextButton() {

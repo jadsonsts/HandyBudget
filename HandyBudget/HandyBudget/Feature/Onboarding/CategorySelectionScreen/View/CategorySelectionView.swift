@@ -39,7 +39,7 @@ class CategorySelectionView: UIView {
     private lazy var nextButton = UIButton(
         configuration: .primary("Next"),
         primaryAction: .init(handler: { [weak self] _ in
-        self?.didTapNextButton()
+        self?.delegate?.nextButtonTapped()
     }))
 
     
@@ -52,10 +52,6 @@ class CategorySelectionView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func didTapNextButton() {
-        delegate?.nextButtonTapped()
     }
 }
 

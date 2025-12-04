@@ -8,22 +8,22 @@
 import UIKit
 
 class CategorySelectionViewController: UIViewController {
-    
-//    let service: String
 
+    let onboardingService: OnboardingService
+    
     private lazy var categorySelectionView: CategorySelectionView = {
         let view = CategorySelectionView()
         return view
     }()
     
-//    init(service: String) {
-//        self.service = service
-//        super.init(nibName: nil, bundle: nil)
-//    }
+    init(onboardingService: OnboardingService) {
+        self.onboardingService = onboardingService
+        super.init(nibName: nil, bundle: nil)
+    }
     
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
